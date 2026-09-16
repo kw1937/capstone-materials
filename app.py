@@ -1,7 +1,10 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+
 from datetime import datetime
+from textwrap import dedent
+
 
 # =========================================================
 # 1. 기본 설정
@@ -14,309 +17,327 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+
 # =========================================================
 # 2. CSS
 # =========================================================
 
-st.markdown("""
-<style>
+st.markdown(
+    dedent("""
+    <style>
 
-/* =========================
-   전체 페이지
-========================= */
+    /* 전체 페이지 */
+    .stApp {
+        background-color: #F5F7FA;
+    }
 
-.stApp {
-    background-color: #F5F7FA;
-}
+    .block-container {
+        padding-top: 1.8rem;
+        padding-bottom: 3rem;
+        max-width: 1450px;
+    }
 
-.block-container {
-    padding-top: 2.8rem;
-    padding-bottom: 3rem;
-    max-width: 1450px;
-}
+    /* Streamlit 기본 UI */
+    header[data-testid="stHeader"] {
+        background: transparent;
+    }
 
-/* =========================
-   상단 헤더
-========================= */
+    #MainMenu {
+        visibility: hidden;
+    }
 
-.top-header {
-    background: white;
-    border: 1px solid #E7EAF0;
-    border-radius: 18px;
-    padding: 18px 22px;
-    margin-bottom: 22px;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.035);
-}
+    footer {
+        visibility: hidden;
+    }
 
-.top-header-inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-}
+    .stDeployButton {
+        display: none;
+    }
 
-.brand-area {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-}
+    /* =========================
+       상단 헤더
+    ========================= */
 
-.cnu-logo {
-    width: 58px;
-    height: 58px;
-    border-radius: 16px;
-    background: linear-gradient(135deg, #173B63, #245A8A);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 900;
-    font-size: 18px;
-    letter-spacing: 0.5px;
-    box-shadow: 0 4px 12px rgba(23,59,99,0.18);
-}
-
-.brand-text-wrap {
-    display: flex;
-    flex-direction: column;
-}
-
-.brand-small {
-    font-size: 12px;
-    color: #8A94A6;
-    font-weight: 700;
-    letter-spacing: 0.8px;
-    margin-bottom: 3px;
-}
-
-.brand-title {
-    font-size: 27px;
-    font-weight: 900;
-    color: #14213D;
-    line-height: 1.25;
-    margin: 0;
-}
-
-.brand-subtitle {
-    font-size: 13px;
-    color: #7A8495;
-    margin-top: 5px;
-}
-
-.user-area {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.notification-box {
-    position: relative;
-    width: 43px;
-    height: 43px;
-    border-radius: 12px;
-    background: #F3F6FA;
-    border: 1px solid #E4E8EF;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 19px;
-}
-
-.notification-badge {
-    position: absolute;
-    top: -4px;
-    right: -4px;
-    background: #E84D4D;
-    color: white;
-    font-size: 10px;
-    min-width: 18px;
-    height: 18px;
-    border-radius: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 800;
-    border: 2px solid white;
-}
-
-.user-card {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: #F8FAFC;
-    border: 1px solid #E4E8EF;
-    border-radius: 14px;
-    padding: 8px 12px;
-}
-
-.user-avatar {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    background: #173B63;
-    color: white;
-    font-weight: 800;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.user-name {
-    color: #17213A;
-    font-size: 13px;
-    font-weight: 800;
-}
-
-.user-role {
-    color: #8A94A6;
-    font-size: 11px;
-    margin-top: 2px;
-}
-
-/* =========================
-   KPI 카드
-========================= */
-
-.kpi-card {
-    background: white;
-    padding: 22px 22px 18px 22px;
-    border-radius: 16px;
-    border: 1px solid #E7EAF0;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.035);
-    min-height: 125px;
-}
-
-.kpi-label {
-    color: #7E8797;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.kpi-number {
-    color: #14213D;
-    font-size: 31px;
-    font-weight: 800;
-    margin-top: 8px;
-}
-
-.kpi-desc {
-    color: #9AA2AF;
-    font-size: 12px;
-    margin-top: 2px;
-}
-
-/* =========================
-   검색 박스
-========================= */
-
-.search-box {
-    background: linear-gradient(120deg, #173B63, #275D8C);
-    border-radius: 20px;
-    padding: 30px 32px;
-    margin-bottom: 24px;
-}
-
-.search-title {
-    font-size: 24px;
-    color: white;
-    font-weight: 800;
-}
-
-.search-desc {
-    font-size: 14px;
-    color: #DAE7F4;
-    margin-top: 6px;
-    margin-bottom: 12px;
-}
-
-/* =========================
-   콘텐츠
-========================= */
-
-.section-title {
-    color: #17213A;
-    font-size: 20px;
-    font-weight: 800;
-    margin-top: 5px;
-    margin-bottom: 13px;
-}
-
-.stButton > button {
-    border-radius: 10px;
-    border: none;
-    font-weight: 700;
-    min-height: 40px;
-}
-
-div[data-baseweb="input"] > div {
-    border-radius: 10px;
-}
-
-button[data-baseweb="tab"] {
-    font-weight: 700;
-    font-size: 15px;
-}
-
-[data-testid="stDataFrame"] {
-    border-radius: 12px;
-    overflow: hidden;
-}
-
-/* =========================
-   사이드바
-========================= */
-
-section[data-testid="stSidebar"] {
-    background-color: #101C2E;
-}
-
-section[data-testid="stSidebar"] * {
-    color: white;
-}
-
-.sidebar-brand {
-    padding: 8px 4px 20px 4px;
-}
-
-.sidebar-logo {
-    font-size: 22px;
-    font-weight: 900;
-}
-
-.sidebar-sub {
-    font-size: 13px;
-    color: #AFC0D4 !important;
-    margin-top: 2px;
-}
-
-/* =========================
-   반응형
-========================= */
-
-@media (max-width: 900px) {
+    .top-header {
+        background: white;
+        border: 1px solid #E7EAF0;
+        border-radius: 18px;
+        padding: 20px 24px;
+        margin-bottom: 22px;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.035);
+    }
 
     .top-header-inner {
-        flex-direction: column;
-        align-items: flex-start;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
     }
 
-    .user-area {
-        width: 100%;
-        justify-content: flex-end;
-    }
-
-    .brand-title {
-        font-size: 22px;
+    .brand-area {
+        display: flex;
+        align-items: center;
+        gap: 16px;
     }
 
     .cnu-logo {
-        width: 50px;
-        height: 50px;
+        width: 58px;
+        height: 58px;
+        border-radius: 16px;
+        background: linear-gradient(135deg, #173B63, #245A8A);
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 900;
+        font-size: 18px;
+        letter-spacing: 0.5px;
+        box-shadow: 0 4px 12px rgba(23,59,99,0.18);
     }
-}
 
-</style>
-""", unsafe_allow_html=True)
+    .brand-text-wrap {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .brand-small {
+        font-size: 12px;
+        color: #8A94A6;
+        font-weight: 700;
+        letter-spacing: 0.8px;
+        margin-bottom: 3px;
+    }
+
+    .brand-title {
+        font-size: 27px;
+        font-weight: 900;
+        color: #14213D;
+        line-height: 1.25;
+        margin: 0;
+    }
+
+    .brand-subtitle {
+        font-size: 13px;
+        color: #7A8495;
+        margin-top: 5px;
+    }
+
+    .user-area {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .notification-box {
+        position: relative;
+        width: 43px;
+        height: 43px;
+        border-radius: 12px;
+        background: #F3F6FA;
+        border: 1px solid #E4E8EF;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 19px;
+    }
+
+    .notification-badge {
+        position: absolute;
+        top: -4px;
+        right: -4px;
+        background: #E84D4D;
+        color: white;
+        font-size: 10px;
+        min-width: 18px;
+        height: 18px;
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 800;
+        border: 2px solid white;
+    }
+
+    .user-card {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: #F8FAFC;
+        border: 1px solid #E4E8EF;
+        border-radius: 14px;
+        padding: 8px 12px;
+    }
+
+    .user-avatar {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: #173B63;
+        color: white;
+        font-weight: 800;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .user-name {
+        color: #17213A;
+        font-size: 13px;
+        font-weight: 800;
+    }
+
+    .user-role {
+        color: #8A94A6;
+        font-size: 11px;
+        margin-top: 2px;
+    }
+
+    /* =========================
+       KPI 카드
+    ========================= */
+
+    .kpi-card {
+        background: white;
+        padding: 22px 22px 18px 22px;
+        border-radius: 16px;
+        border: 1px solid #E7EAF0;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.035);
+        min-height: 125px;
+    }
+
+    .kpi-label {
+        color: #7E8797;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .kpi-number {
+        color: #14213D;
+        font-size: 31px;
+        font-weight: 800;
+        margin-top: 8px;
+    }
+
+    .kpi-desc {
+        color: #9AA2AF;
+        font-size: 12px;
+        margin-top: 2px;
+    }
+
+    /* =========================
+       검색 박스
+    ========================= */
+
+    .search-box {
+        background: linear-gradient(120deg, #173B63, #275D8C);
+        border-radius: 20px;
+        padding: 30px 32px;
+        margin-bottom: 24px;
+    }
+
+    .search-title {
+        font-size: 24px;
+        color: white;
+        font-weight: 800;
+    }
+
+    .search-desc {
+        font-size: 14px;
+        color: #DAE7F4;
+        margin-top: 6px;
+        margin-bottom: 12px;
+    }
+
+    /* =========================
+       콘텐츠
+    ========================= */
+
+    .section-title {
+        color: #17213A;
+        font-size: 20px;
+        font-weight: 800;
+        margin-top: 5px;
+        margin-bottom: 13px;
+    }
+
+    .stButton > button {
+        border-radius: 10px;
+        border: none;
+        font-weight: 700;
+        min-height: 40px;
+    }
+
+    div[data-baseweb="input"] > div {
+        border-radius: 10px;
+    }
+
+    button[data-baseweb="tab"] {
+        font-weight: 700;
+        font-size: 15px;
+    }
+
+    [data-testid="stDataFrame"] {
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    /* =========================
+       사이드바
+    ========================= */
+
+    section[data-testid="stSidebar"] {
+        background-color: #101C2E;
+    }
+
+    section[data-testid="stSidebar"] * {
+        color: white;
+    }
+
+    .sidebar-brand {
+        padding: 8px 4px 20px 4px;
+    }
+
+    .sidebar-logo {
+        font-size: 22px;
+        font-weight: 900;
+    }
+
+    .sidebar-sub {
+        font-size: 13px;
+        color: #AFC0D4 !important;
+        margin-top: 2px;
+    }
+
+    /* =========================
+       반응형
+    ========================= */
+
+    @media (max-width: 900px) {
+
+        .top-header-inner {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .user-area {
+            width: 100%;
+            justify-content: flex-end;
+        }
+
+        .brand-title {
+            font-size: 22px;
+        }
+
+        .cnu-logo {
+            width: 50px;
+            height: 50px;
+        }
+    }
+
+    </style>
+    """),
+    unsafe_allow_html=True
+)
 
 
 # =========================================================
@@ -439,8 +460,13 @@ materials = pd.DataFrame([
 
     ["JOB-010", "MAT-021", "절연저항계 리드선", 1, 6, "B-02-01", "EA"],
 ], columns=[
-    "작업코드", "자재코드", "자재명",
-    "필요수량", "현재재고", "창고위치", "단위"
+    "작업코드",
+    "자재코드",
+    "자재명",
+    "필요수량",
+    "현재재고",
+    "창고위치",
+    "단위"
 ])
 
 
@@ -503,13 +529,13 @@ if "requests" not in st.session_state:
 
 def kpi_card(label, value, description):
     st.markdown(
-        f"""
+        dedent(f"""
         <div class="kpi-card">
             <div class="kpi-label">{label}</div>
             <div class="kpi-number">{value}</div>
             <div class="kpi-desc">{description}</div>
         </div>
-        """,
+        """),
         unsafe_allow_html=True
     )
 
@@ -532,12 +558,15 @@ materials["재고상태"] = materials.apply(stock_status, axis=1)
 
 with st.sidebar:
 
-    st.markdown("""
-    <div class="sidebar-brand">
-        <div class="sidebar-logo">CNU</div>
-        <div class="sidebar-sub">Smart Materials</div>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown(
+        dedent("""
+        <div class="sidebar-brand">
+            <div class="sidebar-logo">CNU</div>
+            <div class="sidebar-sub">Smart Materials</div>
+        </div>
+        """),
+        unsafe_allow_html=True
+    )
 
     menu = st.radio(
         "MENU",
@@ -555,69 +584,78 @@ with st.sidebar:
 
     st.caption("Capstone Design")
     st.caption("전남대학교 산업기술융합공학과")
-    st.caption("v1.1 Demo")
+    st.caption("v1.2 Demo")
 
 
 # =========================================================
 # 7. 상단 헤더
 # =========================================================
 
-st.markdown("""
-<div class="top-header">
-    <div class="top-header-inner">
+st.markdown(
+    dedent("""
+    <div class="top-header">
+        <div class="top-header-inner">
 
-        <div class="brand-area">
+            <div class="brand-area">
 
-            <div class="cnu-logo">
-                CNU
-            </div>
-
-            <div class="brand-text-wrap">
-                <div class="brand-small">
-                    CHONNAM NATIONAL UNIVERSITY
+                <div class="cnu-logo">
+                    CNU
                 </div>
 
-                <div class="brand-title">
-                    스마트 작업·자재 관리 시스템
-                </div>
+                <div class="brand-text-wrap">
 
-                <div class="brand-subtitle">
-                    작업정보 기반 자재 검색 · 신청 · 출고 · 재고 · 사용이력 통합관리 플랫폼
-                </div>
-            </div>
-
-        </div>
-
-        <div class="user-area">
-
-            <div class="notification-box">
-                🔔
-                <div class="notification-badge">3</div>
-            </div>
-
-            <div class="user-card">
-
-                <div class="user-avatar">
-                    KW
-                </div>
-
-                <div>
-                    <div class="user-name">
-                        관리자
+                    <div class="brand-small">
+                        CHONNAM NATIONAL UNIVERSITY
                     </div>
 
-                    <div class="user-role">
-                        Capstone Team
+                    <div class="brand-title">
+                        스마트 작업·자재 관리 시스템
+                    </div>
+
+                    <div class="brand-subtitle">
+                        작업정보 기반 자재 검색 · 신청 · 출고 · 재고 · 사용이력 통합관리 플랫폼
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="user-area">
+
+                <div class="notification-box">
+                    🔔
+                    <div class="notification-badge">
+                        3
                     </div>
                 </div>
 
+                <div class="user-card">
+
+                    <div class="user-avatar">
+                        KW
+                    </div>
+
+                    <div>
+
+                        <div class="user-name">
+                            관리자
+                        </div>
+
+                        <div class="user-role">
+                            Capstone Team
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
 
         </div>
-
     </div>
-</div>
-""", unsafe_allow_html=True)
+    """),
+    unsafe_allow_html=True
+)
 
 
 # =========================================================
@@ -629,12 +667,16 @@ if menu == "종합현황":
     request_df = st.session_state.requests
 
     shortage = len(
-        materials[materials["재고상태"] == "재고부족"]
+        materials[
+            materials["재고상태"] == "재고부족"
+        ]
     )
 
     waiting = len(
         request_df[
-            request_df["상태"].isin(["승인대기", "출고대기"])
+            request_df["상태"].isin(
+                ["승인대기", "출고대기"]
+            )
         ]
     )
 
@@ -670,20 +712,19 @@ if menu == "종합현황":
 
     st.write("")
 
-    # -----------------------------------------------------
-    # 검색 영역
-    # -----------------------------------------------------
-
-    st.markdown("""
-    <div class="search-box">
-        <div class="search-title">
-            🔎 어떤 작업을 준비하고 있나요?
+    st.markdown(
+        dedent("""
+        <div class="search-box">
+            <div class="search-title">
+                🔎 어떤 작업을 준비하고 있나요?
+            </div>
+            <div class="search-desc">
+                작업명, 설비명, 작업코드를 입력하면 필요한 자재를 빠르게 확인할 수 있습니다.
+            </div>
         </div>
-        <div class="search-desc">
-            작업명, 설비명, 작업코드를 입력하면 필요한 자재를 빠르게 확인할 수 있습니다.
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+        """),
+        unsafe_allow_html=True
+    )
 
     keyword = st.text_input(
         "통합 작업 검색",
@@ -694,10 +735,8 @@ if menu == "종합현황":
     if keyword:
 
         result = jobs[
-            jobs.astype(str)
-            .apply(
-                lambda row:
-                row.str.contains(
+            jobs.astype(str).apply(
+                lambda row: row.str.contains(
                     keyword,
                     case=False,
                     na=False
@@ -720,15 +759,15 @@ if menu == "종합현황":
 
         else:
 
-            st.warning("검색 결과가 없습니다.")
+            st.warning(
+                "검색 결과가 없습니다."
+            )
 
     st.write("")
 
-    # -----------------------------------------------------
-    # 그래프
-    # -----------------------------------------------------
-
-    left, right = st.columns([1.7, 1])
+    left, right = st.columns(
+        [1.7, 1]
+    )
 
     with left:
 
@@ -761,7 +800,9 @@ if menu == "종합현황":
         st.plotly_chart(
             fig,
             use_container_width=True,
-            config={"displayModeBar": False}
+            config={
+                "displayModeBar": False
+            }
         )
 
     with right:
@@ -795,16 +836,16 @@ if menu == "종합현황":
         st.plotly_chart(
             fig2,
             use_container_width=True,
-            config={"displayModeBar": False}
+            config={
+                "displayModeBar": False
+            }
         )
 
     st.write("")
 
-    # -----------------------------------------------------
-    # 최근 신청 / 재고주의
-    # -----------------------------------------------------
-
-    left, right = st.columns([1.6, 1])
+    left, right = st.columns(
+        [1.6, 1]
+    )
 
     with left:
 
@@ -868,13 +909,17 @@ elif menu == "작업 검색":
         placeholder="작업명 / 작업코드 / 설비명을 입력하세요."
     )
 
-    col1, col2 = st.columns([1, 3])
+    col1, col2 = st.columns(
+        [1, 3]
+    )
 
     with col1:
 
         department = st.selectbox(
             "부서",
-            ["전체"] + sorted(
+            [
+                "전체"
+            ] + sorted(
                 jobs["부서"].unique().tolist()
             )
         )
@@ -883,7 +928,9 @@ elif menu == "작업 검색":
 
         work_type = st.selectbox(
             "작업구분",
-            ["전체"] + sorted(
+            [
+                "전체"
+            ] + sorted(
                 jobs["작업구분"].unique().tolist()
             )
         )
@@ -893,10 +940,8 @@ elif menu == "작업 검색":
     if keyword:
 
         filtered = filtered[
-            filtered.astype(str)
-            .apply(
-                lambda row:
-                row.str.contains(
+            filtered.astype(str).apply(
+                lambda row: row.str.contains(
                     keyword,
                     case=False,
                     na=False
@@ -906,11 +951,13 @@ elif menu == "작업 검색":
         ]
 
     if department != "전체":
+
         filtered = filtered[
             filtered["부서"] == department
         ]
 
     if work_type != "전체":
+
         filtered = filtered[
             filtered["작업구분"] == work_type
         ]
@@ -1036,20 +1083,25 @@ elif menu == "자재 신청":
         )
 
         selected_code = jobs[
-            jobs["작업명"] == selected_job
+            jobs["작업명"]
+            == selected_job
         ]["작업코드"].iloc[0]
 
         related_materials = materials[
-            materials["작업코드"] == selected_code
+            materials["작업코드"]
+            == selected_code
         ]
 
         selected_material = st.selectbox(
             "자재 선택",
-            related_materials["자재명"].tolist()
+            related_materials[
+                "자재명"
+            ].tolist()
         )
 
         material_info = related_materials[
-            related_materials["자재명"] == selected_material
+            related_materials["자재명"]
+            == selected_material
         ].iloc[0]
 
         c1, c2 = st.columns(2)
@@ -1108,18 +1160,20 @@ elif menu == "자재 신청":
                     )
                 )
 
-                new_row = pd.DataFrame([{
-                    "신청번호": req_id,
-                    "작업코드": selected_code,
-                    "작업명": selected_job,
-                    "자재명": selected_material,
-                    "수량": request_qty,
-                    "신청자": requester,
-                    "상태": "승인대기",
-                    "신청일시": datetime.now().strftime(
-                        "%Y-%m-%d %H:%M"
-                    )
-                }])
+                new_row = pd.DataFrame([
+                    {
+                        "신청번호": req_id,
+                        "작업코드": selected_code,
+                        "작업명": selected_job,
+                        "자재명": selected_material,
+                        "수량": request_qty,
+                        "신청자": requester,
+                        "상태": "승인대기",
+                        "신청일시": datetime.now().strftime(
+                            "%Y-%m-%d %H:%M"
+                        )
+                    }
+                ])
 
                 st.session_state.requests = pd.concat(
                     [
@@ -1135,7 +1189,9 @@ elif menu == "자재 신청":
 
     with right:
 
-        st.markdown("#### 작업 필요 자재")
+        st.markdown(
+            "#### 작업 필요 자재"
+        )
 
         st.dataframe(
             related_materials[
@@ -1176,9 +1232,11 @@ elif menu == "출고 · 검수":
     )
 
     if status == "전체":
+
         display_df = requests
 
     else:
+
         display_df = requests[
             requests["상태"] == status
         ]
@@ -1197,7 +1255,8 @@ elif menu == "출고 · 검수":
         "승인 대기",
         len(
             requests[
-                requests["상태"] == "승인대기"
+                requests["상태"]
+                == "승인대기"
             ]
         )
     )
@@ -1206,7 +1265,8 @@ elif menu == "출고 · 검수":
         "출고 대기",
         len(
             requests[
-                requests["상태"] == "출고대기"
+                requests["상태"]
+                == "출고대기"
             ]
         )
     )
@@ -1215,7 +1275,8 @@ elif menu == "출고 · 검수":
         "출고 완료",
         len(
             requests[
-                requests["상태"] == "출고완료"
+                requests["상태"]
+                == "출고완료"
             ]
         )
     )
@@ -1293,13 +1354,17 @@ elif menu == "사용 이력 분석":
             use_container_width=True
         )
 
-    st.markdown("### 자재 재고 분석")
+    st.markdown(
+        "### 자재 재고 분석"
+    )
 
     stock_analysis = (
         materials
         .groupby("재고상태")
         .size()
-        .reset_index(name="품목수")
+        .reset_index(
+            name="품목수"
+        )
     )
 
     fig3 = px.pie(
