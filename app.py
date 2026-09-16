@@ -586,76 +586,43 @@ with st.sidebar:
     st.caption("전남대학교 산업기술융합공학과")
     st.caption("v1.2 Demo")
 
-
 # =========================================================
 # 7. 상단 헤더
 # =========================================================
 
-st.markdown(
-    dedent("""
-    <div class="top-header">
-        <div class="top-header-inner">
-
-            <div class="brand-area">
-
-                <div class="cnu-logo">
-                    CNU
-                </div>
-
-                <div class="brand-text-wrap">
-
-                    <div class="brand-small">
-                        CHONNAM NATIONAL UNIVERSITY
-                    </div>
-
-                    <div class="brand-title">
-                        스마트 작업·자재 관리 시스템
-                    </div>
-
-                    <div class="brand-subtitle">
-                        작업정보 기반 자재 검색 · 신청 · 출고 · 재고 · 사용이력 통합관리 플랫폼
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="user-area">
-
-                <div class="notification-box">
-                    🔔
-                    <div class="notification-badge">
-                        3
-                    </div>
-                </div>
-
-                <div class="user-card">
-
-                    <div class="user-avatar">
-                        KW
-                    </div>
-
-                    <div>
-
-                        <div class="user-name">
-                            관리자
-                        </div>
-
-                        <div class="user-role">
-                            Capstone Team
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
+header_html = """
+<div class="top-header">
+  <div class="top-header-inner">
+    <div class="brand-area">
+      <div class="cnu-logo">CNU</div>
+      <div class="brand-text-wrap">
+        <div class="brand-small">CHONNAM NATIONAL UNIVERSITY</div>
+        <div class="brand-title">스마트 작업·자재 관리 시스템</div>
+        <div class="brand-subtitle">
+          작업정보 기반 자재 검색 · 신청 · 출고 · 재고 · 사용이력 통합관리 플랫폼
         </div>
+      </div>
     </div>
-    """),
-    unsafe_allow_html=True
-)
+
+    <div class="user-area">
+      <div class="notification-box">
+        🔔
+        <div class="notification-badge">3</div>
+      </div>
+
+      <div class="user-card">
+        <div class="user-avatar">KW</div>
+        <div>
+          <div class="user-name">관리자</div>
+          <div class="user-role">Capstone Team</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+"""
+
+st.html(header_html)
 
 
 # =========================================================
