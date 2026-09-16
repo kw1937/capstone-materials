@@ -384,8 +384,8 @@ section[data-testid="stSidebar"] {
             #0C2543 100%
         );
 
-    min-width: 295px !important;
-    max-width: 295px !important;
+    min-width: 320px !important;
+    max-width: 320px !important;
 
     border-right:
         1px solid rgba(255,255,255,0.06);
@@ -397,8 +397,8 @@ section[data-testid="stSidebar"] {
 section[data-testid="stSidebar"]
 div[data-testid="stSidebarUserContent"] {
 
-    padding-left: 17px;
-    padding-right: 17px;
+    padding-left: 18px;
+    padding-right: 18px;
 }
 
 
@@ -423,15 +423,15 @@ section[data-testid="stSidebar"] * {
 
     border-radius: 16px;
 
-    padding: 18px 16px;
+    padding: 20px 18px;
 
     margin-top: 8px;
-    margin-bottom: 22px;
+    margin-bottom: 24px;
 }
 
 .sidebar-logo {
 
-    font-size: 30px;
+    font-size: 34px;
 
     font-weight: 900;
 
@@ -442,11 +442,11 @@ section[data-testid="stSidebar"] * {
 
 .sidebar-sub {
 
-    font-size: 14px;
+    font-size: 16px;
 
     color: #B9C8D8 !important;
 
-    margin-top: 8px;
+    margin-top: 9px;
 
     font-weight: 600;
 }
@@ -459,7 +459,7 @@ section[data-testid="stSidebar"] * {
 section[data-testid="stSidebar"]
 div[role="radiogroup"] {
 
-    gap: 8px;
+    gap: 9px;
 }
 
 
@@ -474,13 +474,13 @@ label[data-baseweb="radio"] {
     border:
         1px solid rgba(255,255,255,0.08);
 
-    border-radius: 13px;
+    border-radius: 14px;
 
-    padding: 12px 13px !important;
+    padding: 16px 16px !important;
 
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 
-    min-height: 54px;
+    min-height: 68px;
 
     display: flex;
 
@@ -532,16 +532,16 @@ label[data-baseweb="radio"]:has(input:checked) {
 }
 
 
-/* 메뉴 글자 */
+/* 메뉴 글자 - 크게 수정 */
 
 section[data-testid="stSidebar"]
 label[data-baseweb="radio"] p {
 
-    font-size: 17px !important;
+    font-size: 22px !important;
 
-    font-weight: 800 !important;
+    font-weight: 900 !important;
 
-    line-height: 1.35 !important;
+    line-height: 1.4 !important;
 
     color: #FFFFFF !important;
 }
@@ -552,9 +552,9 @@ label[data-baseweb="radio"] p {
 section[data-testid="stSidebar"]
 label[data-baseweb="radio"] > div:first-child {
 
-    margin-right: 5px;
+    margin-right: 7px;
 
-    transform: scale(1.05);
+    transform: scale(1.12);
 }
 
 
@@ -565,8 +565,8 @@ section[data-testid="stSidebar"] hr {
     border-color:
         rgba(255,255,255,0.09);
 
-    margin-top: 22px;
-    margin-bottom: 22px;
+    margin-top: 24px;
+    margin-bottom: 24px;
 }
 
 
@@ -776,62 +776,22 @@ materials = pd.DataFrame([
 
 history = pd.DataFrame({
 
-    "월": [
-        "4월",
-        "5월",
-        "6월",
-        "7월",
-        "8월",
-        "9월"
-    ],
+    "월": ["4월", "5월", "6월", "7월", "8월", "9월"],
 
-    "출고건수": [
-        52,
-        61,
-        57,
-        74,
-        81,
-        93
-    ],
+    "출고건수": [52, 61, 57, 74, 81, 93],
 
-    "자재사용량": [
-        132,
-        148,
-        141,
-        188,
-        207,
-        231
-    ],
+    "자재사용량": [132, 148, 141, 188, 207, 231],
 
-    "긴급출고": [
-        8,
-        6,
-        9,
-        7,
-        11,
-        6
-    ]
+    "긴급출고": [8, 6, 9, 7, 11, 6]
 
 })
 
 
 category_usage = pd.DataFrame({
 
-    "분류": [
-        "기계",
-        "전기",
-        "계장",
-        "배관",
-        "소모품"
-    ],
+    "분류": ["기계", "전기", "계장", "배관", "소모품"],
 
-    "사용량": [
-        38,
-        23,
-        14,
-        17,
-        8
-    ]
+    "사용량": [38, 23, 14, 17, 8]
 
 })
 
@@ -887,15 +847,12 @@ if "requests" not in st.session_state:
 def stock_status(row):
 
     if row["현재재고"] < row["필요수량"]:
-
         return "재고부족"
 
     elif row["현재재고"] <= row["필요수량"] * 2:
-
         return "주의"
 
     else:
-
         return "정상"
 
 
@@ -905,11 +862,7 @@ materials["재고상태"] = materials.apply(
 )
 
 
-def kpi_card(
-    label,
-    value,
-    description
-):
+def kpi_card(label, value, description):
 
     st.html(
         f"""
@@ -938,20 +891,15 @@ def kpi_card(
 
 menu_icons = {
 
-    "종합현황":
-        "📊 종합현황",
+    "종합현황": "📊 종합현황",
 
-    "작업 검색":
-        "🔎 작업 검색",
+    "작업 검색": "🔎 작업 검색",
 
-    "자재 신청":
-        "📝 자재 신청",
+    "자재 신청": "📝 자재 신청",
 
-    "출고 · 검수":
-        "📦 출고 · 검수",
+    "출고 · 검수": "📦 출고 · 검수",
 
-    "사용 이력 분석":
-        "📈 사용 이력 분석"
+    "사용 이력 분석": "📈 사용 이력 분석"
 
 }
 
@@ -984,29 +932,20 @@ with st.sidebar:
             "사용 이력 분석"
         ],
 
-        format_func=lambda x:
-            menu_icons[x],
+        format_func=lambda x: menu_icons[x],
 
         label_visibility="collapsed"
     )
 
     st.markdown("---")
 
-    st.caption(
-        "CAPSTONE DESIGN"
-    )
+    st.caption("CAPSTONE DESIGN")
 
-    st.caption(
-        "전남대학교 산업기술융합공학과"
-    )
+    st.caption("전남대학교 산업기술융합공학과")
 
-    st.caption(
-        "Smart Materials Management"
-    )
+    st.caption("Smart Materials Management")
 
-    st.caption(
-        "v1.3 Demo"
-    )
+    st.caption("v1.4 Demo")
 
 
 # =========================================================
@@ -1102,9 +1041,7 @@ header_html = """
 
 """
 
-st.html(
-    header_html
-)
+st.html(header_html)
 
 
 # =========================================================
@@ -1113,78 +1050,53 @@ st.html(
 
 if menu == "종합현황":
 
-    request_df = (
-        st.session_state.requests
-    )
+    request_df = st.session_state.requests
 
     shortage = len(
         materials[
-            materials["재고상태"]
-            == "재고부족"
+            materials["재고상태"] == "재고부족"
         ]
     )
 
     waiting = len(
         request_df[
             request_df["상태"].isin(
-                [
-                    "승인대기",
-                    "출고대기"
-                ]
+                ["승인대기", "출고대기"]
             )
         ]
     )
 
-
-    # -----------------------------------------------------
-    # KPI
-    # -----------------------------------------------------
-
     c1, c2, c3, c4 = st.columns(4)
 
-
     with c1:
-
         kpi_card(
             "등록 작업",
             len(jobs),
             "현재 시스템 등록 작업"
         )
 
-
     with c2:
-
         kpi_card(
             "금일 자재 신청",
             len(request_df),
             "신규 자재 요청"
         )
 
-
     with c3:
-
         kpi_card(
             "처리 대기",
             waiting,
             "승인 또는 출고 대기"
         )
 
-
     with c4:
-
         kpi_card(
             "재고 부족",
             shortage,
             "필요수량 대비 부족 품목"
         )
 
-
     st.write("")
-
-
-    # -----------------------------------------------------
-    # 검색 영역
-    # -----------------------------------------------------
 
     st.html("""
     <div class="search-box">
@@ -1201,7 +1113,6 @@ if menu == "종합현황":
     </div>
     """)
 
-
     keyword = st.text_input(
 
         "통합 작업 검색",
@@ -1211,7 +1122,6 @@ if menu == "종합현황":
 
         label_visibility="collapsed"
     )
-
 
     if keyword:
 
@@ -1228,7 +1138,6 @@ if menu == "종합현황":
                 axis=1
             )
         ]
-
 
         if len(result) > 0:
 
@@ -1248,154 +1157,99 @@ if menu == "종합현황":
                 "검색 결과가 없습니다."
             )
 
-
     st.write("")
-
-
-    # -----------------------------------------------------
-    # 그래프
-    # -----------------------------------------------------
 
     left, right = st.columns(
         [1.7, 1]
     )
 
-
     with left:
 
-        st.html(
-            """
-            <div class="section-title">
-                월별 자재 출고 추이
-            </div>
-            """
-        )
-
+        st.html("""
+        <div class="section-title">
+            월별 자재 출고 추이
+        </div>
+        """)
 
         fig = px.area(
-
             history,
-
             x="월",
-
             y="출고건수",
-
             markers=True
         )
 
-
         fig.update_layout(
-
             height=330,
-
             margin=dict(
                 l=20,
                 r=20,
                 t=25,
                 b=20
             ),
-
             plot_bgcolor="white",
-
             paper_bgcolor="white",
-
             xaxis_title=None,
-
             yaxis_title="출고 건수"
         )
 
-
         st.plotly_chart(
-
             fig,
-
             use_container_width=True,
-
             config={
-                "displayModeBar":
-                    False
+                "displayModeBar": False
             }
         )
 
-
     with right:
 
-        st.html(
-            """
-            <div class="section-title">
-                분야별 자재 사용 비율
-            </div>
-            """
-        )
-
+        st.html("""
+        <div class="section-title">
+            분야별 자재 사용 비율
+        </div>
+        """)
 
         fig2 = px.pie(
-
             category_usage,
-
             names="분류",
-
             values="사용량",
-
             hole=0.60
         )
 
-
         fig2.update_layout(
-
             height=330,
-
             margin=dict(
                 l=20,
                 r=20,
                 t=25,
                 b=20
             ),
-
             legend=dict(
-
                 orientation="h",
-
                 y=-0.15
             )
         )
 
-
         st.plotly_chart(
-
             fig2,
-
             use_container_width=True,
-
             config={
-                "displayModeBar":
-                    False
+                "displayModeBar": False
             }
         )
-
-
-    # -----------------------------------------------------
-    # 최근 신청 / 재고주의
-    # -----------------------------------------------------
 
     left, right = st.columns(
         [1.6, 1]
     )
 
-
     with left:
 
-        st.html(
-            """
-            <div class="section-title">
-                최근 자재 신청
-            </div>
-            """
-        )
-
+        st.html("""
+        <div class="section-title">
+            최근 자재 신청
+        </div>
+        """)
 
         st.dataframe(
-
             request_df[
                 [
                     "신청번호",
@@ -1405,30 +1259,20 @@ if menu == "종합현황":
                     "상태"
                 ]
             ],
-
             use_container_width=True,
-
             hide_index=True
         )
 
-
     with right:
 
-        st.html(
-            """
-            <div class="section-title">
-                재고 주의 품목
-            </div>
-            """
-        )
-
+        st.html("""
+        <div class="section-title">
+            재고 주의 품목
+        </div>
+        """)
 
         warning_material = materials[
-
-            materials[
-                "재고상태"
-            ] != "정상"
-
+            materials["재고상태"] != "정상"
         ][
             [
                 "자재명",
@@ -1438,13 +1282,9 @@ if menu == "종합현황":
             ]
         ]
 
-
         st.dataframe(
-
             warning_material,
-
             use_container_width=True,
-
             hide_index=True
         )
 
@@ -1461,7 +1301,6 @@ elif menu == "작업 검색":
     </div>
     """)
 
-
     keyword = st.text_input(
 
         "작업 검색",
@@ -1470,11 +1309,9 @@ elif menu == "작업 검색":
         "작업명 / 작업코드 / 설비명을 입력하세요."
     )
 
-
     col1, col2 = st.columns(
         [1, 2]
     )
-
 
     with col1:
 
@@ -1482,17 +1319,11 @@ elif menu == "작업 검색":
 
             "담당 부서",
 
-            [
-                "전체"
-            ]
-            +
+            ["전체"] +
             sorted(
-                jobs[
-                    "부서"
-                ].unique().tolist()
+                jobs["부서"].unique().tolist()
             )
         )
-
 
     with col2:
 
@@ -1500,25 +1331,17 @@ elif menu == "작업 검색":
 
             "작업 구분",
 
-            [
-                "전체"
-            ]
-            +
+            ["전체"] +
             sorted(
-                jobs[
-                    "작업구분"
-                ].unique().tolist()
+                jobs["작업구분"].unique().tolist()
             )
         )
 
-
     filtered = jobs.copy()
-
 
     if keyword:
 
         filtered = filtered[
-
             filtered
             .astype(str)
             .apply(
@@ -1534,37 +1357,27 @@ elif menu == "작업 검색":
             )
         ]
 
-
     if department != "전체":
 
         filtered = filtered[
-            filtered["부서"]
-            == department
+            filtered["부서"] == department
         ]
-
 
     if work_type != "전체":
 
         filtered = filtered[
-            filtered["작업구분"]
-            == work_type
+            filtered["작업구분"] == work_type
         ]
-
 
     st.caption(
         f"검색 결과 {len(filtered)}건"
     )
 
-
     st.dataframe(
-
         filtered,
-
         use_container_width=True,
-
         hide_index=True
     )
-
 
     if len(filtered) > 0:
 
@@ -1572,75 +1385,54 @@ elif menu == "작업 검색":
 
             "상세 정보를 확인할 작업",
 
-            filtered[
-                "작업명"
-            ].tolist()
+            filtered["작업명"].tolist()
         )
 
-
         job_info = filtered[
-
-            filtered["작업명"]
-            == selected_job
-
+            filtered["작업명"] == selected_job
         ].iloc[0]
 
-
         job_materials = materials[
-
             materials["작업코드"]
-            ==
-            job_info["작업코드"]
-
+            == job_info["작업코드"]
         ]
 
-
         st.divider()
-
 
         st.subheader(
             job_info["작업명"]
         )
 
-
         info1, info2, info3 = st.columns(
             3
         )
-
 
         info1.metric(
             "작업 코드",
             job_info["작업코드"]
         )
 
-
         info2.metric(
             "설비",
             job_info["설비"]
         )
-
 
         info3.metric(
             "현재 상태",
             job_info["상태"]
         )
 
-
         tab1, tab2, tab3 = st.tabs(
-
             [
                 "필요 자재",
                 "재고 현황",
                 "작업 정보"
             ]
-
         )
-
 
         with tab1:
 
             st.dataframe(
-
                 job_materials[
                     [
                         "자재코드",
@@ -1650,17 +1442,13 @@ elif menu == "작업 검색":
                         "창고위치"
                     ]
                 ],
-
                 use_container_width=True,
-
                 hide_index=True
             )
-
 
         with tab2:
 
             st.dataframe(
-
                 job_materials[
                     [
                         "자재명",
@@ -1669,12 +1457,9 @@ elif menu == "작업 검색":
                         "재고상태"
                     ]
                 ],
-
                 use_container_width=True,
-
                 hide_index=True
             )
-
 
         with tab3:
 
@@ -1707,105 +1492,71 @@ elif menu == "자재 신청":
     </div>
     """)
 
-
     left, right = st.columns(
         [1, 1.4],
         gap="large"
     )
 
-
     with left:
 
         selected_job = st.selectbox(
-
             "작업 선택",
-
-            jobs[
-                "작업명"
-            ].tolist()
+            jobs["작업명"].tolist()
         )
 
-
         selected_code = jobs[
-
             jobs["작업명"]
             == selected_job
-
         ]["작업코드"].iloc[0]
 
-
         related_materials = materials[
-
             materials["작업코드"]
             == selected_code
-
         ]
 
-
         selected_material = st.selectbox(
-
             "자재 선택",
-
             related_materials[
                 "자재명"
             ].tolist()
         )
 
-
         material_info = related_materials[
-
             related_materials["자재명"]
             == selected_material
-
         ].iloc[0]
 
-
         c1, c2 = st.columns(2)
-
 
         c1.metric(
             "필요 수량",
             material_info["필요수량"]
         )
 
-
         c2.metric(
             "현재 재고",
             material_info["현재재고"]
         )
 
-
         request_qty = st.number_input(
-
             "신청 수량",
-
             min_value=1,
-
             value=int(
-                material_info[
-                    "필요수량"
-                ]
+                material_info["필요수량"]
             )
         )
 
-
         requester = st.text_input(
-
             "신청자",
-
             placeholder=
             "이름을 입력하세요."
         )
 
-
         reason = st.text_area(
-
             "비고",
-
             placeholder=
             "필요 시 요청사항을 입력하세요."
         )
-
 
         if st.button(
             "자재 신청",
@@ -1819,17 +1570,11 @@ elif menu == "자재 신청":
                     "신청자 이름을 입력해주세요."
                 )
 
-
-            elif (
-                request_qty
-                >
-                material_info["현재재고"]
-            ):
+            elif request_qty > material_info["현재재고"]:
 
                 st.error(
                     "신청 수량이 현재 재고보다 많습니다."
                 )
-
 
             else:
 
@@ -1841,31 +1586,16 @@ elif menu == "자재 신청":
                     )
                 )
 
-
                 new_row = pd.DataFrame(
                     [
                         {
-                            "신청번호":
-                                req_id,
-
-                            "작업코드":
-                                selected_code,
-
-                            "작업명":
-                                selected_job,
-
-                            "자재명":
-                                selected_material,
-
-                            "수량":
-                                request_qty,
-
-                            "신청자":
-                                requester,
-
-                            "상태":
-                                "승인대기",
-
+                            "신청번호": req_id,
+                            "작업코드": selected_code,
+                            "작업명": selected_job,
+                            "자재명": selected_material,
+                            "수량": request_qty,
+                            "신청자": requester,
+                            "상태": "승인대기",
                             "신청일시":
                                 datetime.now().strftime(
                                     "%Y-%m-%d %H:%M"
@@ -1873,7 +1603,6 @@ elif menu == "자재 신청":
                         }
                     ]
                 )
-
 
                 st.session_state.requests = (
                     pd.concat(
@@ -1885,11 +1614,9 @@ elif menu == "자재 신청":
                     )
                 )
 
-
                 st.success(
                     "자재 신청이 완료되었습니다."
                 )
-
 
     with right:
 
@@ -1897,9 +1624,7 @@ elif menu == "자재 신청":
             "작업 필요 자재"
         )
 
-
         st.dataframe(
-
             related_materials[
                 [
                     "자재코드",
@@ -1910,9 +1635,7 @@ elif menu == "자재 신청":
                     "재고상태"
                 ]
             ],
-
             use_container_width=True,
-
             hide_index=True
         )
 
@@ -1929,16 +1652,12 @@ elif menu == "출고 · 검수":
     </div>
     """)
 
-
     requests = (
         st.session_state.requests
     )
 
-
     status = st.selectbox(
-
         "상태 필터",
-
         [
             "전체",
             "승인대기",
@@ -1946,7 +1665,6 @@ elif menu == "출고 · 검수":
             "출고완료"
         ]
     )
-
 
     if status == "전체":
 
@@ -1959,14 +1677,10 @@ elif menu == "출고 · 검수":
             == status
         ]
 
-
     c1, c2, c3 = st.columns(3)
 
-
     c1.metric(
-
         "승인 대기",
-
         len(
             requests[
                 requests["상태"]
@@ -1975,11 +1689,8 @@ elif menu == "출고 · 검수":
         )
     )
 
-
     c2.metric(
-
         "출고 대기",
-
         len(
             requests[
                 requests["상태"]
@@ -1988,11 +1699,8 @@ elif menu == "출고 · 검수":
         )
     )
 
-
     c3.metric(
-
         "출고 완료",
-
         len(
             requests[
                 requests["상태"]
@@ -2001,16 +1709,11 @@ elif menu == "출고 · 검수":
         )
     )
 
-
     st.write("")
 
-
     st.dataframe(
-
         display_df,
-
         use_container_width=True,
-
         hide_index=True
     )
 
@@ -2027,9 +1730,7 @@ elif menu == "사용 이력 분석":
     </div>
     """)
 
-
     c1, c2, c3 = st.columns(3)
-
 
     c1.metric(
         "9월 출고 건수",
@@ -2037,13 +1738,11 @@ elif menu == "사용 이력 분석":
         "+14.8%"
     )
 
-
     c2.metric(
         "9월 자재 사용량",
         "231개",
         "+11.6%"
     )
-
 
     c3.metric(
         "긴급 출고",
@@ -2051,88 +1750,60 @@ elif menu == "사용 이력 분석":
         "-45.5%"
     )
 
-
     st.write("")
 
-
     left, right = st.columns(2)
-
 
     with left:
 
         fig = px.line(
-
             history,
-
             x="월",
-
             y="자재사용량",
-
             markers=True,
-
             title=
             "월별 자재 사용량"
         )
-
 
         fig.update_layout(
             height=380
         )
 
-
         st.plotly_chart(
-
             fig,
-
             use_container_width=True,
-
             config={
-                "displayModeBar":
-                    False
+                "displayModeBar": False
             }
         )
-
 
     with right:
 
         fig2 = px.bar(
-
             category_usage,
-
             x="분류",
-
             y="사용량",
-
             title=
             "분야별 자재 사용량"
         )
-
 
         fig2.update_layout(
             height=380
         )
 
-
         st.plotly_chart(
-
             fig2,
-
             use_container_width=True,
-
             config={
-                "displayModeBar":
-                    False
+                "displayModeBar": False
             }
         )
-
 
     st.subheader(
         "재고 상태 분석"
     )
 
-
     stock_analysis = (
-
         materials
         .groupby(
             "재고상태"
@@ -2143,33 +1814,22 @@ elif menu == "사용 이력 분석":
         )
     )
 
-
     fig3 = px.pie(
-
         stock_analysis,
-
         names="재고상태",
-
         values="품목수",
-
         hole=0.55
     )
-
 
     fig3.update_layout(
         height=350
     )
 
-
     st.plotly_chart(
-
         fig3,
-
         use_container_width=True,
-
         config={
-            "displayModeBar":
-                False
+            "displayModeBar": False
         }
     )
 
