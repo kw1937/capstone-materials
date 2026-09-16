@@ -15,39 +15,168 @@ st.set_page_config(
 )
 
 # =========================================================
-# 2. CSS 디자인
+# 2. CSS
 # =========================================================
 
 st.markdown("""
 <style>
 
-/* 전체 배경 */
+/* =========================
+   전체 페이지
+========================= */
+
 .stApp {
     background-color: #F5F7FA;
 }
 
-/* 기본 콘텐츠 폭 */
 .block-container {
-    padding-top: 1.5rem;
+    padding-top: 2.8rem;
     padding-bottom: 3rem;
     max-width: 1450px;
 }
 
-/* 제목 */
-.main-title {
-    font-size: 32px;
-    font-weight: 800;
-    margin-bottom: 4px;
-    color: #14213D;
-}
+/* =========================
+   상단 헤더
+========================= */
 
-.main-subtitle {
-    font-size: 14px;
-    color: #7B8495;
+.top-header {
+    background: white;
+    border: 1px solid #E7EAF0;
+    border-radius: 18px;
+    padding: 18px 22px;
     margin-bottom: 22px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.035);
 }
 
-/* KPI 카드 */
+.top-header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.brand-area {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.cnu-logo {
+    width: 58px;
+    height: 58px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #173B63, #245A8A);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 900;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 12px rgba(23,59,99,0.18);
+}
+
+.brand-text-wrap {
+    display: flex;
+    flex-direction: column;
+}
+
+.brand-small {
+    font-size: 12px;
+    color: #8A94A6;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    margin-bottom: 3px;
+}
+
+.brand-title {
+    font-size: 27px;
+    font-weight: 900;
+    color: #14213D;
+    line-height: 1.25;
+    margin: 0;
+}
+
+.brand-subtitle {
+    font-size: 13px;
+    color: #7A8495;
+    margin-top: 5px;
+}
+
+.user-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.notification-box {
+    position: relative;
+    width: 43px;
+    height: 43px;
+    border-radius: 12px;
+    background: #F3F6FA;
+    border: 1px solid #E4E8EF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 19px;
+}
+
+.notification-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: #E84D4D;
+    color: white;
+    font-size: 10px;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 800;
+    border: 2px solid white;
+}
+
+.user-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #F8FAFC;
+    border: 1px solid #E4E8EF;
+    border-radius: 14px;
+    padding: 8px 12px;
+}
+
+.user-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #173B63;
+    color: white;
+    font-weight: 800;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-name {
+    color: #17213A;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.user-role {
+    color: #8A94A6;
+    font-size: 11px;
+    margin-top: 2px;
+}
+
+/* =========================
+   KPI 카드
+========================= */
+
 .kpi-card {
     background: white;
     padding: 22px 22px 18px 22px;
@@ -76,17 +205,10 @@ st.markdown("""
     margin-top: 2px;
 }
 
-/* 일반 카드 */
-.content-card {
-    background: white;
-    padding: 22px;
-    border-radius: 16px;
-    border: 1px solid #E7EAF0;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.03);
-    margin-bottom: 14px;
-}
+/* =========================
+   검색 박스
+========================= */
 
-/* 검색 영역 */
 .search-box {
     background: linear-gradient(120deg, #173B63, #275D8C);
     border-radius: 20px;
@@ -107,7 +229,10 @@ st.markdown("""
     margin-bottom: 12px;
 }
 
-/* 섹션 제목 */
+/* =========================
+   콘텐츠
+========================= */
+
 .section-title {
     color: #17213A;
     font-size: 20px;
@@ -116,35 +241,6 @@ st.markdown("""
     margin-bottom: 13px;
 }
 
-/* 작업 상태 Badge */
-.badge-green {
-    background: #E8F8F0;
-    color: #168657;
-    border-radius: 20px;
-    padding: 4px 10px;
-    font-size: 12px;
-    font-weight: 700;
-}
-
-.badge-orange {
-    background: #FFF3DE;
-    color: #C77700;
-    border-radius: 20px;
-    padding: 4px 10px;
-    font-size: 12px;
-    font-weight: 700;
-}
-
-.badge-red {
-    background: #FFE8E8;
-    color: #D33B3B;
-    border-radius: 20px;
-    padding: 4px 10px;
-    font-size: 12px;
-    font-weight: 700;
-}
-
-/* Streamlit 버튼 */
 .stButton > button {
     border-radius: 10px;
     border: none;
@@ -152,18 +248,24 @@ st.markdown("""
     min-height: 40px;
 }
 
-/* 입력창 */
 div[data-baseweb="input"] > div {
     border-radius: 10px;
 }
 
-/* 탭 */
 button[data-baseweb="tab"] {
     font-weight: 700;
     font-size: 15px;
 }
 
-/* 사이드바 */
+[data-testid="stDataFrame"] {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* =========================
+   사이드바
+========================= */
+
 section[data-testid="stSidebar"] {
     background-color: #101C2E;
 }
@@ -172,17 +274,45 @@ section[data-testid="stSidebar"] * {
     color: white;
 }
 
-/* Dataframe */
-[data-testid="stDataFrame"] {
-    border-radius: 12px;
-    overflow: hidden;
+.sidebar-brand {
+    padding: 8px 4px 20px 4px;
 }
 
-/* hr */
-hr {
-    border: none;
-    height: 1px;
-    background-color: #E8EBF0;
+.sidebar-logo {
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.sidebar-sub {
+    font-size: 13px;
+    color: #AFC0D4 !important;
+    margin-top: 2px;
+}
+
+/* =========================
+   반응형
+========================= */
+
+@media (max-width: 900px) {
+
+    .top-header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .user-area {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .brand-title {
+        font-size: 22px;
+    }
+
+    .cnu-logo {
+        width: 50px;
+        height: 50px;
+    }
 }
 
 </style>
@@ -403,13 +533,9 @@ materials["재고상태"] = materials.apply(stock_status, axis=1)
 with st.sidebar:
 
     st.markdown("""
-    <div style="padding:10px 0 25px 0;">
-        <div style="font-size:22px;font-weight:800;">
-            CNU
-        </div>
-        <div style="font-size:14px;color:#AAB7C6;">
-            Smart Materials
-        </div>
+    <div class="sidebar-brand">
+        <div class="sidebar-logo">CNU</div>
+        <div class="sidebar-sub">Smart Materials</div>
     </div>
     """, unsafe_allow_html=True)
 
@@ -429,25 +555,69 @@ with st.sidebar:
 
     st.caption("Capstone Design")
     st.caption("전남대학교 산업기술융합공학과")
-    st.caption("v1.0 Demo")
+    st.caption("v1.1 Demo")
 
 
 # =========================================================
-# 7. 헤더
+# 7. 상단 헤더
 # =========================================================
 
-st.markdown(
-    """
-    <div class="main-title">
-        스마트 작업·자재 관리 시스템
-    </div>
+st.markdown("""
+<div class="top-header">
+    <div class="top-header-inner">
 
-    <div class="main-subtitle">
-        작업정보를 기반으로 필요한 자재를 검색하고 신청·출고·사용이력을 통합 관리합니다.
+        <div class="brand-area">
+
+            <div class="cnu-logo">
+                CNU
+            </div>
+
+            <div class="brand-text-wrap">
+                <div class="brand-small">
+                    CHONNAM NATIONAL UNIVERSITY
+                </div>
+
+                <div class="brand-title">
+                    스마트 작업·자재 관리 시스템
+                </div>
+
+                <div class="brand-subtitle">
+                    작업정보 기반 자재 검색 · 신청 · 출고 · 재고 · 사용이력 통합관리 플랫폼
+                </div>
+            </div>
+
+        </div>
+
+        <div class="user-area">
+
+            <div class="notification-box">
+                🔔
+                <div class="notification-badge">3</div>
+            </div>
+
+            <div class="user-card">
+
+                <div class="user-avatar">
+                    KW
+                </div>
+
+                <div>
+                    <div class="user-name">
+                        관리자
+                    </div>
+
+                    <div class="user-role">
+                        Capstone Team
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
-    """,
-    unsafe_allow_html=True
-)
+</div>
+""", unsafe_allow_html=True)
 
 
 # =========================================================
@@ -501,7 +671,7 @@ if menu == "종합현황":
     st.write("")
 
     # -----------------------------------------------------
-    # 빠른 작업 검색
+    # 검색 영역
     # -----------------------------------------------------
 
     st.markdown("""
@@ -601,8 +771,6 @@ if menu == "종합현황":
             unsafe_allow_html=True
         )
 
-        fig2 = px.donut if hasattr(px, "donut") else None
-
         fig2 = px.pie(
             category_usage,
             names="분류",
@@ -633,7 +801,7 @@ if menu == "종합현황":
     st.write("")
 
     # -----------------------------------------------------
-    # 최근 신청 + 부족재고
+    # 최근 신청 / 재고주의
     # -----------------------------------------------------
 
     left, right = st.columns([1.6, 1])
@@ -779,13 +947,13 @@ elif menu == "작업 검색":
             f"""
             ### {job_info['작업명']}
 
-            **작업코드**
+            **작업코드**  
             {job_info['작업코드']}
 
-            **설비**
+            **설비**  
             {job_info['설비']}
 
-            **담당부서**
+            **담당부서**  
             {job_info['부서']}
             """
         )
@@ -868,13 +1036,11 @@ elif menu == "자재 신청":
         )
 
         selected_code = jobs[
-            jobs["작업명"]
-            == selected_job
+            jobs["작업명"] == selected_job
         ]["작업코드"].iloc[0]
 
         related_materials = materials[
-            materials["작업코드"]
-            == selected_code
+            materials["작업코드"] == selected_code
         ]
 
         selected_material = st.selectbox(
@@ -883,8 +1049,7 @@ elif menu == "자재 신청":
         )
 
         material_info = related_materials[
-            related_materials["자재명"]
-            == selected_material
+            related_materials["자재명"] == selected_material
         ].iloc[0]
 
         c1, c2 = st.columns(2)
@@ -1032,8 +1197,7 @@ elif menu == "출고 · 검수":
         "승인 대기",
         len(
             requests[
-                requests["상태"]
-                == "승인대기"
+                requests["상태"] == "승인대기"
             ]
         )
     )
@@ -1042,8 +1206,7 @@ elif menu == "출고 · 검수":
         "출고 대기",
         len(
             requests[
-                requests["상태"]
-                == "출고대기"
+                requests["상태"] == "출고대기"
             ]
         )
     )
@@ -1052,8 +1215,7 @@ elif menu == "출고 · 검수":
         "출고 완료",
         len(
             requests[
-                requests["상태"]
-                == "출고완료"
+                requests["상태"] == "출고완료"
             ]
         )
     )
@@ -1158,11 +1320,13 @@ elif menu == "사용 이력 분석":
 
 
 # =========================================================
-# Footer
+# 13. Footer
 # =========================================================
 
 st.divider()
 
 st.caption(
-    "CNU Smart Materials Management System · Capstone Design Prototype"
+    "CNU Smart Materials Management System · "
+    "Chonnam National University · "
+    "Capstone Design Prototype"
 )
